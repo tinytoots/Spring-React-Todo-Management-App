@@ -48,6 +48,7 @@ export default class Counter extends Component {
             <CounterButton by={10} incrementMethod={this.increment} decrementMethod={this.decrement}/> 
             <span className="count">{this.state.counter}</span>
             <div><button className="reset" onClick={this.reset}>Reset</button></div>
+            <h1>set</h1>
           </div>
         );
       } 
@@ -60,56 +61,24 @@ class CounterButton extends Component {
     constructor() {
         super(); // Error 1 使用this就需要super
 
-        this.state = {
-            counter : 0,
-        }
+        // this.state = {
+        //     counter : 0,
+        // }
 
-        this.increment = this.increment.bind(this);
-        this.decrement = this.decrement.bind(this);
+        // this.increment = this.increment.bind(this);
+        // this.decrement = this.decrement.bind(this);
     }
 
-
-    increment() { 
-        // console.log('increment'); 
-        this.setState(
-            (prevState) => {
-            return {counter: prevState.counter + this.props.by}
-             }
-        );
-
-        this.props.incrementMethod(this.props.by);
-    }
-
-    decrement() { 
-        // console.log('increment'); 
-        this.setState(
-            (prevState) => {
-            return {counter: prevState.counter - this.props.by}
-             }
-        );
-
-        this.props.decrementMethod(this.props.by);
-    }
-
-    
     render() {
         return (
             <div className='counter'> 
-                <button onClick={this.increment}>+{this.props.by}</button>
-                <button onClick={this.decrement}>-{this.props.by}</button>
+                <button onClick={() => this.props.incrementMethod(this.props.by)}>+{this.props.by}</button>
+                <button onClick={() => this.props.decrementMethodment(this.props.by)}>-{this.props.by}</button>
                 {/* <span className="count">{this.state.counter}</span> */}
             </div>
         )
     }
 
-    // render = () => { 箭头函数可以自动bind variables
-    //     return (
-    //         <div className='counter'> 
-    //             <button onClick={this.increment}>+1</button>
-    //             <span className="count">{this.state.counter}</span>
-    //         </div>
-    //     )
-    // }
 }
 
 // 设置默认props，在class外面

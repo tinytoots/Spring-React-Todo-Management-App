@@ -23,6 +23,16 @@ export default class Counter extends Component {
         });
     }
 
+    // 可以改成箭头函数
+    increment(by) { 
+        // console.log(`increment from parent - ${by}`)
+        this.setState(
+            (prevState) => {
+                return {counter: prevState.counter + by}
+            }
+        );
+    }
+
     render() {
         return (
           <div className="Counter">
