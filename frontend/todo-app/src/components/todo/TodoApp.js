@@ -1,15 +1,38 @@
 import React, { Component } from 'react'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 export default class TodoApp extends Component {
     render() {
         return (
             <div className="TodoApp">
-                <LoginComponent />
+                <Router>
+                    <Switch>
+                        <Route path="/" exact component={LoginComponent} />
+                        <Route path="/login" component={LoginComponent} />
+                        <Route path="/welcome/:name" component={WelcomeComponent} />
+                        <Route component={ErrorComponent} />
+                    </Switch>
+                </Router>
+                {/* <LoginComponent />
+                <WelcomeComponent /> */}
             </div>
         )
     }
 }
 
+class WelcomeComponent extends Component {
+    render() {
+        return <div>Welcome {this.props.match.params.name}</div>
+    }
+}
+
+function ErrorComponent() {
+    return (
+        <div>
+            An Error Occurred. I don't know what to do! Contact support at 10 summer
+        </div>
+    )
+}
 
 
 class LoginComponent extends Component {
@@ -56,11 +79,10 @@ class LoginComponent extends Component {
     loginClicked() {
         // chenwang, good
         if (this.state.username === 'chenwang' && this.state.password === 'good') {
-            console.log('Successful')
-            this.setState({showSuccessMessage:true})
-            this.setState({hasLoginFailed:false})
+            this.props.history.push(`/welcome/${this.state.username}`) 
+            // this.setState({showSuccessMessage:true})
+            // this.setState({hasLoginFailed:false})
         } else {
-            console.log('Failed')
             this.setState({showSuccessMessage:false})
             this.setState({hasLoginFailed:true})
         }
