@@ -10,6 +10,7 @@ export default class WelcomeComponent extends Component {
             welcomeMessage : ''
         }
         this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
+        this.handleError = this.handleError.bind(this)
     }
 
     render() {
@@ -44,12 +45,19 @@ export default class WelcomeComponent extends Component {
 
         HellowWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
         .then(response => this.handleSuccessfulResponse(response))
+        .catch(error => this.handleError(error))
     }
 
     handleSuccessfulResponse(response) {       
         console.log(response)
         // you cannot display an object directly, that's why we use response.data.message here
         this.setState({welcomeMessage: response.data.message})
+    }
+
+    handleError(error) {       
+        console.log(error.response)
+        // you cannot display an object directly, that's why we use response.data.message here
+        this.setState({welcomeMessage: error.response.data.message})
     }
 
 }
