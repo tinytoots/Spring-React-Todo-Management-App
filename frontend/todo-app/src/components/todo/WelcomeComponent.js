@@ -56,8 +56,18 @@ export default class WelcomeComponent extends Component {
 
     handleError(error) {       
         console.log(error.response)
+        let errorMessage = '';
+
+        if (error.message) 
+            errorMessage += error.message
+
+        if (error.response && error.response.data) {
+            errorMessage += error.response.data.message
+        }
+
+
         // you cannot display an object directly, that's why we use response.data.message here
-        this.setState({welcomeMessage: error.response.data.message})
+        this.setState({welcomeMessage: errorMessage})
     }
 
 }
